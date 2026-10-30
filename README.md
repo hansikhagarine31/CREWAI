@@ -1,11 +1,30 @@
 # CrewAI Multi-Agent Projects Backend
 
+[![Deployed on Render](https://img.shields.io/badge/Render-Live%20Service-brightgreen?logo=render)](https://crewai-b4c6.onrender.com)
+[![Model](https://img.shields.io/badge/Model-Gemini%203.1%20Flash%20Lite-blue?logo=google-gemini)](https://aistudio.google.com/)
+
 A production-grade Python FastAPI backend implementing 10 CrewAI projects powered by Google Gemini (`gemini-3.1-flash-lite`).
 
-This repository contains only the three canonical assignment files:
-- `app.py`: FastAPI server implementing routes `/agent1` through `/agent10`.
+* **Live Deployed Backend**: [https://crewai-b4c6.onrender.com](https://crewai-b4c6.onrender.com)
+* **Interactive Web Dashboard**: [https://crewai-b4c6.onrender.com](https://crewai-b4c6.onrender.com)
+* **GitHub Repository**: [https://github.com/hansikhagarine31/CREWAI](https://github.com/hansikhagarine31/CREWAI)
+
+This repository contains strictly the three canonical assignment files:
+- `app.py`: FastAPI application implementing routes `/agent1` through `/agent10` with interactive visual web console.
 - `requirements.txt`: Python package dependencies.
 - `README.md`: Documentation and execution instructions.
+
+---
+
+## Live Deployed Service
+
+The service is fully deployed and accessible at:
+```text
+https://crewai-b4c6.onrender.com
+```
+
+* **Interactive Web Dashboard (Browser GET)**: Opening the URL in any web browser loads the visual interactive dashboard with cards for all 10 agents, live status indicators, and an interactive runner.
+* **API Endpoints (HTTP POST)**: `POST https://crewai-b4c6.onrender.com/agent1` through `/agent10` accept JSON input and return `{ "output": "..." }`.
 
 ---
 
@@ -50,6 +69,36 @@ Every agent endpoint is accessed via HTTP **POST**:
 
 ---
 
+## Testing with Postman or cURL
+
+### cURL (Live Service):
+```bash
+curl -X POST https://crewai-b4c6.onrender.com/agent1 \
+  -H "Content-Type: application/json" \
+  -d '{"input": "Artificial intelligence in healthcare"}'
+```
+
+### Postman Verification:
+1. **Method**: `POST`
+2. **URL**: `https://crewai-b4c6.onrender.com/agent1`
+3. **Headers**: `Content-Type: application/json`
+4. **Body** &rarr; `raw` &rarr; `JSON`:
+   ```json
+   {
+     "input": "hello"
+   }
+   ```
+5. **Response**: HTTP 200 with JSON:
+   ```json
+   {
+     "output": "..."
+   }
+   ```
+
+*(Repeat for `/agent2` through `/agent10`)*.
+
+---
+
 ## Local Setup & Execution
 
 ### 1. Create a Virtual Environment
@@ -70,7 +119,7 @@ pip install -r requirements.txt
 
 ### 3. Configure Environment Variables
 
-Create a `.env` file in this directory:
+Create a `.env` file in the root directory:
 
 ```env
 GEMINI_API_KEY=your_gemini_api_key_here
@@ -84,46 +133,26 @@ PORT=8000
 uvicorn app:app --reload --port 8000
 ```
 
-The service is available at `http://localhost:8000`.
-
----
-
-## Testing with Postman or cURL
-
-### cURL Example:
-```bash
-curl -X POST http://localhost:8000/agent1 \
-  -H "Content-Type: application/json" \
-  -d '{"input": "Artificial intelligence in agriculture"}'
-```
-
-### Postman:
-1. Method: `POST`
-2. URL: `http://localhost:8000/agent1` (or `https://your-deployed-service.onrender.com/agent1`)
-3. Body -> `raw` -> `JSON`:
-   ```json
-   {
-     "input": "hello"
-   }
-   ```
-4. Verify response:
-   ```json
-   {
-     "output": "..."
-   }
-   ```
+The service will be available locally at `http://localhost:8000`.
 
 ---
 
 ## Deployment (Render)
 
-1. Create a new **Web Service** on [Render](https://render.com).
-2. Connect your GitHub repository.
-3. Configure the service:
-   - **Environment**: Python
+1. Connect this repository ([`https://github.com/hansikhagarine31/CREWAI`](https://github.com/hansikhagarine31/CREWAI)) to **Render**.
+2. Service Settings:
+   - **Environment**: Python 3
    - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `uvicorn app:app --host 0.0.0.0 --port $PORT`
-4. Add Environment Variables:
-   - `GEMINI_API_KEY`: Your Google AI Studio API key.
+3. Environment Variables:
+   - `PYTHON_VERSION`: `3.11.9`
+   - `GEMINI_API_KEY`: *(Google AI Studio API key)*
    - `GEMINI_MODEL`: `gemini-3.1-flash-lite`
-5. Note the deployed URL (e.g. `https://your-service.onrender.com`).
+4. **Live URL**: `https://crewai-b4c6.onrender.com`
+
+---
+
+## Final Submission Details
+
+* **Deployed Link**: `https://crewai-b4c6.onrender.com`
+* **GitHub Repository Link**: `https://github.com/hansikhagarine31/CREWAI`
